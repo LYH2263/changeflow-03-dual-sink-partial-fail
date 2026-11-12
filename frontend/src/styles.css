@@ -114,6 +114,16 @@ select, input {
 .tag.ok { background: color-mix(in srgb, var(--ok) 25%, transparent); color: var(--ok); }
 .tag.warn { background: color-mix(in srgb, var(--warn) 25%, transparent); color: var(--warn); }
 .row-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.row-actions label { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.85rem; color: var(--muted); }
+.row-actions input { min-width: 14rem; }
+.sink-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 1rem;
+}
+button.ghost.active {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
 pre.mono {
   font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 0.82rem;

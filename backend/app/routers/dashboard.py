@@ -19,6 +19,7 @@ def dashboard():
             "stream_count": len(streams),
             "enabled_streams": sum(1 for s in streams if s["enabled"]),
             "sink_count": sink_repo.count_sink(conn),
+            "shadow_sink_count": sink_repo.count_shadow_sink(conn),
             "quarantine_count": quarantine_repo.count_quarantine(conn),
             "run_count": len(runs_repo.list_runs(conn, limit=10000)),
             "recent_runs": runs,

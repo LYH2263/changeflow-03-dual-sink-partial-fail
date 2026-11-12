@@ -53,6 +53,31 @@ def init_db():
             updated_at TEXT NOT NULL,
             UNIQUE(stream_id, entity_key)
         );
+        CREATE TABLE IF NOT EXISTS sink_shadow_records(
+            id INTEGER PRIMARY KEY,
+            stream_id INTEGER NOT NULL,
+            entity_key TEXT NOT NULL,
+            payload_json TEXT NOT NULL,
+            last_seq INTEGER NOT NULL,
+            last_event_ts TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            UNIQUE(stream_id, entity_key)
+        );
+        CREATE TABLE IF NOT EXISTS dual_write_attempts(
+            id INTEGER PRIMARY KEY,
+            run_id INTEGER NOT NULL,
+            stream_id INTEGER NOT NULL,
+            seq INTEGER NOT NULL,
+            entity_key TEXT NOT NULL,
+            op TEXT NOT NULL,
+            policy TEXT NOT NULL,
+            outcome TEXT NOT NULL,
+            main_committed INTEGER NOT NULL,
+            shadow_committed INTEGER NOT NULL,
+            cursor_advanced INTEGER NOT NULL,
+            reason TEXT,
+            created_at TEXT NOT NULL
+        );
         CREATE TABLE IF NOT EXISTS quarantine(
             id INTEGER PRIMARY KEY,
             stream_id INTEGER NOT NULL,
@@ -101,5 +126,8 @@ def init_db():
         conn.execute(
             "INSERT INTO settings(key, value) VALUES ('gap_policy', 'stop_quarantine')"
         )
-        conn.commit()
+    conn.execute(
+        "INSERT OR IGNORE INTO settings(key, value) VALUES ('dual_sink_policy', 'main_commit_isolate_shadow')"
+    )
+    conn.commit()
     conn.close()

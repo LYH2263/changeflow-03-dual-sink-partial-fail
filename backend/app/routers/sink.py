@@ -13,3 +13,12 @@ def list_sink():
         return sink_repo.list_sink(conn)
     finally:
         conn.close()
+
+
+@router.get("/sink/shadow")
+def list_shadow_sink():
+    conn = connect()
+    try:
+        return sink_repo.list_shadow_sink(conn)
+    finally:
+        conn.close()

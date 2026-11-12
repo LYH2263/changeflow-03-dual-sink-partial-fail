@@ -21,7 +21,8 @@ onMounted(async () => {
     <div class="tiles" v-if="stats">
       <div class="tile"><div class="hero-num">{{ stats.stream_count }}</div><div class="muted">变更流</div></div>
       <div class="tile"><div class="hero-num">{{ stats.enabled_streams }}</div><div class="muted">启用</div></div>
-      <div class="tile"><div class="hero-num">{{ stats.sink_count }}</div><div class="muted">Sink</div></div>
+      <div class="tile"><div class="hero-num">{{ stats.sink_count }}</div><div class="muted">主 Sink</div></div>
+      <div class="tile"><div class="hero-num">{{ stats.shadow_sink_count }}</div><div class="muted">旁路 Sink</div></div>
       <div class="tile"><div class="hero-num">{{ stats.quarantine_count }}</div><div class="muted">隔离</div></div>
       <div class="tile"><div class="hero-num">{{ stats.run_count }}</div><div class="muted">Apply Runs</div></div>
     </div>
